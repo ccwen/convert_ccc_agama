@@ -1,5 +1,5 @@
 var fs=require("fs");
-var sourceroot="../../ccc/agama/htdocs/agama/";
+var sourceroot="../ccc_translation/";  // https://github.com/dhamma/ccc_translation/
 var DN=[],MN=[],SN=[],AN=[];
 var Pali=require("./pali");
 var Chinese=require("./chinese");
@@ -40,7 +40,7 @@ var convert=function(fn){
 	var pali=Pali.split_paragraph(res.pali,fn);
 	var chi=Chinese.split_paragraph(res.chi,fn);
 	//console.log(pali.length);
-	console.log(fn+" "+chi.paragraph.join(" "));
+	//console.log(fn+" "+chi.paragraph.join(" "));
 }
 
 //convert(DN[0]);
