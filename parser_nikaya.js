@@ -1,3 +1,4 @@
+
 var fs=require("fs");
 
 //list.length=10;
@@ -15,15 +16,18 @@ var processfile=function(fn){
 	}
 	var content=fs.readFileSync(source,"utf8").replace(/\r?\n/g,"\n");
 
-	var m=fn.match(/(\d+)/);
-	if (m) sid=parseInt(m[1]);
-	if (isNaN(sid)) {
-		console.log("cannot get sid from content, use filename",fn,sid);
-		sid=fn;
+	var sid        =getfield(content,options.pat_sid);
+	if (!sid) {
+		var m=fn.match(/(\d+)/);
+		if (m) sid=parseInt(m[1]);
+		if (isNaN(sid)) {
+			console.log("cannot get sid from content, use filename",fn,sid);
+			sid=fn;
+		}		
 	}
 	
   var notes=parseNoteDef(content);
-  var text_with_links=getNikaya(content,sid,options.workaround);
+  var text_with_links=getNikaya(content,sid,fn,options.workaround);
   var links=text_with_links.links;
 
 

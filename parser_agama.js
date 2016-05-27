@@ -30,7 +30,7 @@ var processfile=function(fn){
 	var corresponse=parseCorresponse(corr,sid);
 	
   var notes=parseNoteDef(content);
-  var text_with_links=getAgama(content,sid,options.workaround);
+  var text_with_links=getAgama(content,sid,fn,options.workaround);
   var links=text_with_links.links;
   /*
   var at=text_with_links.text.indexOf("<a");

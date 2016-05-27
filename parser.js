@@ -97,7 +97,7 @@ var docorrections=function(content) {
 	});
 
 }
-var getAgama=function(content,sid,workaround){
+var getAgama=function(content,sid,fn,workaround){
 	content=content.replace(/\r?\n/g,"\n");
 	var text=getfield(content,/<div class="agama">([\S\s]*?)<div class="nikaya">/);
 
@@ -139,13 +139,13 @@ var getAgama=function(content,sid,workaround){
 
 	var hastag=parsed.content.indexOf("<");
 	if (hastag>-1) {
-		console.log("has tag in",sid, parsed.content.substr(hastag,40));
+		console.log("has tag in",fn, parsed.content.substr(hastag,40));
 	}
 
 	return {text:parsed.content,links:parsed.links,ref};		
 }
 
-var getNikaya=function(content,sid,workaround){
+var getNikaya=function(content,sid,fn,workaround){
 	content=content.replace(/\r?\n/g,"\n");
 	var text=getfield(content,/<div class="nikaya">([\S\s]*?)<\/div>/);
 
@@ -175,7 +175,7 @@ var getNikaya=function(content,sid,workaround){
 
 	var hastag=parsed.content.indexOf("<");
 	if (hastag>-1) {
-		console.log("has tag in",sid, parsed.content.substr(hastag,40));
+		console.log("has tag in",fn,parsed.content.substr(hastag,40));
 	}
 
 	return {text:parsed.content,links:parsed.links,ref};		
