@@ -63,6 +63,9 @@ var parseSuttaName=function(cnames,sid){
 		var m=cname.match(/增壹阿含(\d+)品(\d+)經/);
 		if (m) {names.push("aa"+m[1]+"."+m[2]);continue}
 
+		var m=cname.match(/相應部?(\d+)相應第?([ 0-9\-]+?)經/);
+		if (m) {names.push("sn"+m[1]+"."+m[2]);continue}
+
 		var m=cname.match(/No\.(\d+)/);
 		if (m) {names.push("taisho"+m[1]);continue}
 
@@ -119,7 +122,7 @@ var getAgama=function(content,sid,workaround){
 	var suttas=parseSutta(text);
 	var ref=parseSuttaName(Object.keys(suttas),sid);
 
-	agama=suttas[Object.keys(suttas)[0]]; //assuming the first suttra is what we want
+	var agama=suttas[Object.keys(suttas)[0]]; //assuming the first suttra is what we want
 
 	agama=agama.replace("\n<br>\n</div>\n","");
 
@@ -134,15 +137,48 @@ var getAgama=function(content,sid,workaround){
 
 	var parsed=parseNote(agama);
 
-	if (parsed.content.indexOf("<")>-1) {
-		console.log("has tag in",sid);
+	var hastag=parsed.content.indexOf("<");
+	if (hastag>-1) {
+		console.log("has tag in",sid, parsed.content.substr(hastag,40));
 	}
 
 	return {text:parsed.content,links:parsed.links,ref};		
 }
 
-var getNikaya=function(content){
+var getNikaya=function(content,sid,workaround){
+	content=content.replace(/\r?\n/g,"\n");
+	var text=getfield(content,/<div class="nikaya">([\S\s]*?)<\/div>/);
 
+	if (!text) {
+		console.log("cannot get content");
+		return;
+//		text=getfield(content,/<br><u>([\S\s]*?)<div /); //ma069 has no nikaya/south, ends with <div
+	}
+
+	var suttas=parseSutta(text);
+	var ref=parseSuttaName(Object.keys(suttas),sid);
+
+	var nikaya=suttas[Object.keys(suttas)[0]]; //assuming the first suttra is what we want
+
+	nikaya=nikaya.replace("\n<br>\n</div>\n","");
+
+	var firstbr=nikaya.indexOf("<br>　　");
+	nikaya=nikaya.substr(firstbr+6).replace(/\n<br>　　/g,"\n");
+
+	nikaya=doworkaround(nikaya,workaround).trim();
+
+	nikaya=docorrections(nikaya);
+
+	//text pos is fixed
+
+	var parsed=parseNote(nikaya);
+
+	var hastag=parsed.content.indexOf("<");
+	if (hastag>-1) {
+		console.log("has tag in",sid, parsed.content.substr(hastag,40));
+	}
+
+	return {text:parsed.content,links:parsed.links,ref};		
 }
 
 var parseCorresponse=function(corresponse,sid){
