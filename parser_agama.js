@@ -54,6 +54,7 @@ var processfile=function(fn){
   }
 
   out[sid]=text_with_links;
+  out[sid].notes=notes;
 
 }
 
@@ -62,8 +63,8 @@ var processfiles=function(outfn,lst,opts){
 	options=opts||{};
 	reset();
 	lst.forEach(processfile);
-	fs.writeFileSync(outfn+".xml",JSON.stringify(out,""," "),"utf8");
-	fs.writeFileSync(outfn+"-corr.xml",JSON.stringify(getcorrections(),""," "),"utf8");
+	fs.writeFileSync(outfn+".json",JSON.stringify(out,""," "),"utf8");
+	fs.writeFileSync(outfn+"-corr.json",JSON.stringify(getcorrections(),""," "),"utf8");
 }
 
 module.exports=processfiles;

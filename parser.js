@@ -16,7 +16,7 @@ var doworkaround=function(content,workarounds){
 
 var parseNote=function(content){
 	var links=[];
-	content=content.replace(/<a onMouseover="(.*?)\(this,(\d+)\);">(.*?)<\/a>/g,function(m,type,noteid,text,idx){
+	content=content.replace(/<a onMouseover="([a-z]{4,5})\(this,(\d+)\);">(.*?)<\/a>/g,function(m,type,noteid,text,idx){
 		links.push([idx,text.length,noteid,type]);
 		return text;
 	});
@@ -158,7 +158,7 @@ var parseCorresponse=function(corresponse,sid){
 		}
 	});
 
-	corresponse.replace(/增支部(.*?)集(.*?)經/g,function(m,m1,m2){
+	corresponse.replace(/增支部(.*?)集(.*?)經?/g,function(m,m1,m2){
 		var sutras=m2.split(",");
 		for (var i=0;i<sutras.length;i++) {
 				out.push("an"+m1+"."+sutras[i]);
