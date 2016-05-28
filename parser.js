@@ -6,10 +6,17 @@ var getfield=function(content,regex){
 }
 /* sa0015.htm has overlap link */
 /* 有<a onMouseover="note(this,39);">異<a onMouseover="note(this,31);">比丘</a></a> */
+var cleanups=require("./cleanups");
+var docleanups=function(content) {
+	for (var i=0;i<cleanups.length;i++) {
+		content=content.replace(cleanups[i][0],cleanups[i][1]);
+	}
+	return content;
+}
 
-var doworkaround=function(content,workarounds){
-	for (var i=0;i<workarounds.length;i++) {
-		content=content.replace(workarounds[i][0],workarounds[i][1]);
+var doworkaround=function(content,workaround){
+	for (var i=0;i<workaround.length;i++) {
+		content=content.replace(workaround[i][0],workaround[i][1]);
 	}
 	return content;
 }
@@ -66,6 +73,13 @@ var parseSuttaName=function(cnames,sid){
 		var m=cname.match(/相應部?(\d+)相應第?([ 0-9\-]+?)經/);
 		if (m) {names.push("sn"+m[1]+"."+m[2]);continue}
 
+		var m=cname.match(/中部([ 0-9\-]+?)經/);
+		if (m) {names.push("mn"+m[1]);continue}
+
+		var m=cname.match(/長部([ 0-9\-]+?)經/);
+		if (m) {names.push("dn"+m[1]);continue}
+
+
 		var m=cname.match(/No\.(\d+)/);
 		if (m) {names.push("taisho"+m[1]);continue}
 
@@ -86,7 +100,6 @@ var getcorrections=function(){
 }
 var docorrections=function(content) {
 	//only process {x}[y]
-
 	return content.replace(/\{(.+?)\}\[(.+?)\]/g,function(m,m1,m2){
 		if  (m1.length==m2.length) {
 			corrections.push([m1,m2]);
@@ -95,8 +108,14 @@ var docorrections=function(content) {
 			return m;
 		}
 	});
-
 }
+
+var convertPnumToAnchor=function(content) {//so that parseNotes will convert it into a external note
+	return content.replace(/\n?<!(.+?)>\n?/g,function(m,m1){
+		return '<a onMouseover="para(this,'+m1+');"></a>';
+	})
+}
+
 var getAgama=function(content,sid,fn,workaround){
 	content=content.replace(/\r?\n/g,"\n");
 	var text=getfield(content,/<div class="agama">([\S\s]*?)<div class="nikaya">/);
@@ -124,14 +143,18 @@ var getAgama=function(content,sid,fn,workaround){
 
 	var agama=suttas[Object.keys(suttas)[0]]; //assuming the first suttra is what we want
 
-	agama=agama.replace("\n<br>\n</div>\n","");
+	
 
 	var firstbr=agama.indexOf("<br>　　");
 	agama=agama.substr(firstbr+6).replace(/\n<br>　　/g,"\n");
 
 	agama=doworkaround(agama,workaround).trim();
-
+	agama=docleanups(agama);
 	agama=docorrections(agama);
+	
+	//replace <!xxx> to <a> format, to build a paragraph breaker
+
+	
 
 	//text pos is fixed
 
@@ -147,7 +170,7 @@ var getAgama=function(content,sid,fn,workaround){
 
 var getNikaya=function(content,sid,fn,workaround){
 	content=content.replace(/\r?\n/g,"\n");
-	var text=getfield(content,/<div class="nikaya">([\S\s]*?)<\/div>/);
+	var text=getfield(content,/<div class="nikaya">([\S\s]*?)<\/?div/);
 
 	if (!text) {
 		console.log("cannot get content");
@@ -166,9 +189,10 @@ var getNikaya=function(content,sid,fn,workaround){
 	nikaya=nikaya.substr(firstbr+6).replace(/\n<br>　　/g,"\n");
 
 	nikaya=doworkaround(nikaya,workaround).trim();
-
+	nikaya=docleanups(nikaya);
 	nikaya=docorrections(nikaya);
 
+	nikaya=convertPnumToAnchor(nikaya);
 	//text pos is fixed
 
 	var parsed=parseNote(nikaya);

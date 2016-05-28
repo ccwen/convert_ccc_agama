@@ -48,13 +48,14 @@ var processfile=function(fn){
 
 }
 
-var processfiles=function(outfn,lst,opts){
+var processfiles=function(collections,lst,opts){
 	lst=lst||list;
 	options=opts||{};
+	options.workaround=options.workaround||require("./workarounds")[collections];
 	reset();
 	lst.forEach(processfile);
-	fs.writeFileSync(outfn+".json",JSON.stringify(out,""," "),"utf8");
-	fs.writeFileSync(outfn+"-corr.json",JSON.stringify(getcorrections(),""," "),"utf8");
+	fs.writeFileSync(options.targetpath+collections+".json",JSON.stringify(out,""," "),"utf8");
+	fs.writeFileSync(options.targetpath+collections+"-corr.json",JSON.stringify(getcorrections(),""," "),"utf8");
 }
 
 module.exports=processfiles;

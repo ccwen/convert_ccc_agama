@@ -61,6 +61,7 @@ var processfile=function(fn){
 var processfiles=function(outfn,lst,opts){
 	lst=lst||list;
 	options=opts||{};
+	options.workaround=options.workaround||require("./workarounds")[collections];
 	reset();
 	lst.forEach(processfile);
 	fs.writeFileSync(outfn+".json",JSON.stringify(out,""," "),"utf8");
