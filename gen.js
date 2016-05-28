@@ -9,7 +9,7 @@ var parsers={
 	//da:require("./parser_da"),
 	//aa:require("./parser_aa"),
 //	sn:require("./parser_sn")
-	mn:require("./parser_mn")
+	an:require("./parser_an")
 };
 
 for (i in parsers){

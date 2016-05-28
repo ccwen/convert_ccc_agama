@@ -23,7 +23,7 @@ var doworkaround=function(content,workaround){
 
 var parseNote=function(content){
 	var links=[];
-	content=content.replace(/<a onMouseover="([a-z]{4,5})\(this,(\d+)\);">(.*?)<\/a>/g,function(m,type,noteid,text,idx){
+	content=content.replace(/<a onMouseover="([a-z]{4,5})\(this,(.+?)\);">(.*?)<\/a>/g,function(m,type,noteid,text,idx){
 		links.push([idx,text.length,noteid,type]);
 		return text;
 	});
@@ -79,6 +79,9 @@ var parseSuttaName=function(cnames,sid){
 		var m=cname.match(/長部([ 0-9\-]+?)經/);
 		if (m) {names.push("dn"+m[1]);continue}
 
+
+		var m=cname.match(/增支部(\d+)集([ 0-9\-]+?)經/);
+		if (m) {names.push("an"+m[1]+"."+m[2]);continue}
 
 		var m=cname.match(/No\.(\d+)/);
 		if (m) {names.push("taisho"+m[1]);continue}

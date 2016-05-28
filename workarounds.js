@@ -163,7 +163,7 @@ var mn=[
  ,'<a onMouseover="note(this,48);">從在家出家成為非家生活</a>'],//mn031
 [/煩惱<\/a>已盡<\/a>、修行已成/g,'煩惱</a>已盡、修行已成'],//mn34,mn35
 ['<a onMouseover="note(this,12;">世尊</a>','<a onMouseover="note(this,12);">世尊</a>'], //mn041 missing )
-['<a onMouseover="note(this,200);"<a onMouseover="note(this,200);">尊者</a></a>',
+['<a onMouseover="note(this,200);"<a onMouseover="note(this,200);">尊者</a></a>', //mn043, missing >
  '"<a onMouseover="note(this,200);">尊者</a>'],
 ['<a onMouseover="note(this,18);">出生已盡，<a onMouseover="note(this,19);">梵行已完成</a>', //mn057
  '<a onMouseover="note(this,18);">出生已盡</a>，<a onMouseover="note(this,19);">梵行已完成</a>'],
@@ -179,10 +179,49 @@ var mn=[
 ['<a onMouseover="note(this,138);"同梵行</a>','<a onMouseover="note(this,138);">同梵行</a>'], //mn138, missing >
 ['<a onMouseover="local(this,2);"><a onMouseover="note(this,479);">全心注意後</a></a>',
  '<a onMouseover="note(this,479);">全心注意後</a>'],//mn 134, duplicate local note 2
-
 ]
 var dn=[
+[/<a onMouseover="note\(this,18\);">出生已盡，<a onMouseover="note\(this,19\);">梵行已完成<\/a>/g, //dn02,dn03
+ '<a onMouseover="note(this,18);">出生已盡</a>，<a onMouseover="note(this,19);">梵行已完成</a>'],
+[/<a onMouseover="note\(this,87\);"><a onMouseover="note\(this,87\);">為了托鉢<\/a><\/a>/g,//dn09,dn24,dn34,
+'<a onMouseover="note(this,87);">為了托鉢</a>'], 
+['這以前未曾聽聞，不可思議的偈頌</a>','這以前未曾聽聞，不可思議的偈頌'], //dn14
+['已完成意向、志向與梵行的基礎</a>','已完成意向、志向與梵行的基礎'],//dn19
+['六種平靜近伺察</a>','六種平靜近伺察']
+
 ];
 var an=[
+[/<a onMouseover="note\(this,87\);"><a onMouseover="note\(this,87\);">為了托鉢<\/a><\/a>/g,
+'<a onMouseover="note(this,87);">為了托鉢</a>'], //an487, 488,522,704,904,918,1003,1174,1298,1299,1427,1456,1465,1494
+[/<a onMouseover="not\(this,483\);">遍清淨的梵行<\/a>/g, //an453
+'<a onMouseover="note(this,483);">遍清淨的梵行</a>'],
+['<a onMouseover="note(this,79);"><a onMouseover="note(this,200);">尊者</a></a>', //an444
+ '<a onMouseover="note(this,200);">尊者</a>'],
+['<a onMouseover="note(this,45);"><a onMouseover="note(this,45);">大德</a>！</a>', //an490
+ '<a onMouseover="note(this,45);">大德</a>！'],
+['有此</a>，有下劣的，有勝妙的','有此，有下劣的，有勝妙的'],//an490
+['<a onMouseover="note(this,335);">一百五十餘條<a onMouseover="note(this,392);">學處</a></a>',
+ '<a onMouseover="note(this,335);">一百五十餘條學處</a>'], //an0508
+['不因[偷]一迦哈玻那</a>遭受捆綁','不因[偷]一迦哈玻那遭受捆綁'],//an0524
+['<a onMouseover="note(this,313);"><a onMouseover="note(this,223);">寧靜</a>覺支</a>', //an580
+ '<a onMouseover="note(this,313);">寧靜覺支</a>'] ,
+['自制所防護，具足正行和行境</a>，在微罪中看見可怕',
+'自制所防護，<a onMouseover="note(this,418);">具足正行和行境</a>，在微罪中看見可怕'], //an0594, missing note 418
+['這是四種定的修習</a>。','<a onMouseover="note(this,94);">這是四種定的修習</a>。'], //an0623
+['<a onMouseover="local(this,1);">橋的破壞為<a onMouseover="note(this,12);">世尊</a>所說</a>',//an0741
+'<a onMouseover="local(this,1);">橋的破壞為世尊所說</a>'], //an0741
+['這裡，某人本來</a>是重貪之類者','這裡，某人<a onMouseover="local(this,4);">本來</a>是重貪之類者'], //an0744
+['<a onMouseover="local(this,1);">善男子</a>的家人</a>','<a onMouseover="local(this,1);">善男子</a>的家人'],//an0900
+['<a onMouseover="local(this,1);">心彎向上妙<a onMouseover="note(this,187);">五種欲</a>的受用</a>', //an1008
+ '<a onMouseover="local(this,1);">心彎向上妙五種欲的受用</a>'], 
+['<a onMouseover="local(this,6);">外來的<a onMouseover="note(this,31);">比丘</a></a>', //an1185
+'<a onMouseover="local(this,6);">外來的比丘</a>'],
+['<a onMouseover="note(this,147);"><a onMouseover="note(this,147);">就像無根的棕櫚樹</a></a>', //an1368
+'<a onMouseover="note(this,147);">就像無根的棕櫚樹</a>'],
+['<a onMouseover="local(this,1);"><a onMouseover="note(this,228);">平靜</a>俱行</a>', //an1420
+'<a onMouseover="local(this,1);">平靜俱行</a>'],
+['<a onMouseover="local(this,2);">是<a onMouseover="note(this,138);">同梵行者</a>們的承迎者</a>', //an1619
+'<a onMouseover="local(this,2);">是同梵行者們的承迎者</a>'],
+['比丘們！具備四十法能被認知</a>','比丘們！具備四十法能被認知']
 ];
 module.exports={da,ma,sa,aa,sn,mn,dn,an};
